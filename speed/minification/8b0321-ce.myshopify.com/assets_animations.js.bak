@@ -1,0 +1,139 @@
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof gsap === "undefined") return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const defaults = {
+    duration: 0.7,
+    ease: "power3.out",
+    start: "top 85%",
+  };
+
+  function getDelay(el) {
+    const classes = [...el.classList];
+    const delayClass = classes.find(c => c.startsWith("delay-"));
+
+    if (!delayClass) return 0;
+
+    const value = parseInt(delayClass.replace("delay-", ""), 10);
+
+    return value * 0.1;
+  }
+
+  function getDuration(el) {
+
+    if (el.classList.contains("duration-fast")) return .4;
+    if (el.classList.contains("duration-slow")) return 1;
+
+    return defaults.duration;
+  }
+
+  function animate(selector, fromVars) {
+
+    gsap.utils.toArray(selector).forEach(el => {
+
+      gsap.from(el, {
+
+        ...fromVars,
+
+        opacity: 0,
+
+        duration: getDuration(el),
+
+        delay: getDelay(el),
+
+        ease: defaults.ease,
+
+        scrollTrigger: {
+          trigger: el,
+          start: defaults.start,
+          once: true
+        }
+
+      });
+
+    });
+
+  }
+
+  animate(".fade", {});
+
+  animate(".fade-up", {
+    y: 30
+  });
+
+  animate(".fade-down", {
+    y: -30
+  });
+
+  animate(".fade-left", {
+    x: -40
+  });
+
+  animate(".fade-right", {
+    x: 40
+  });
+
+  animate(".scale-in", {
+    scale: .96
+  });
+
+  animate(".zoom-out", {
+    scale: 1.08
+  });
+
+  animate(".rotate-in", {
+    rotation: 8,
+    scale: .95
+  });
+
+  animate(".blur-in", {
+    filter: "blur(12px)",
+    y: 20
+  });
+
+  gsap.utils.toArray(".stagger").forEach(container => {
+
+    gsap.from(container.children, {
+
+      opacity: 0,
+
+      y: 30,
+
+      stagger: .12,
+
+      duration: defaults.duration,
+
+      ease: defaults.ease,
+
+      scrollTrigger: {
+        trigger: container,
+        start: defaults.start,
+        once: true
+      }
+
+    });
+
+  });
+
+  gsap.utils.toArray(".parallax").forEach(el => {
+
+    gsap.to(el, {
+
+      yPercent: 15,
+
+      ease: "none",
+
+      scrollTrigger: {
+
+        trigger: el,
+
+        scrub: true
+
+      }
+
+    });
+
+  });
+
+});
