@@ -1,0 +1,117 @@
+document.addEventListener("DOMContentLoaded", () => {
+
+  // Scroll Animate
+  const items = document.querySelectorAll(".scroll-animate");
+
+  if (items.length) {
+    const observer = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    items.forEach((item) => observer.observe(item));
+  }
+
+  // Check GSAP
+  if (typeof gsap === "undefined") {
+    console.error("GSAP is not loaded");
+    return;
+  }
+
+  // Check ScrollTrigger
+  if (typeof ScrollTrigger === "undefined") {
+    console.error("ScrollTrigger is not loaded");
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+
+
+  // Fade Up
+  gsap.utils.toArray(".reveal-up").forEach((el) => {
+    gsap.from(el, {
+      opacity: 0,
+      y: 70,
+      duration: 1,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: el,
+        start: "top 88%",
+        once: true
+      }
+    });
+  });
+
+
+  // Fade Left
+  gsap.utils.toArray(".reveal-left").forEach((el) => {
+    gsap.from(el, {
+      opacity: 0,
+      x: -80,
+      duration: 1,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: el,
+        start: "top 88%",
+        once: true
+      }
+    });
+  });
+
+
+  // Fade Right
+  gsap.utils.toArray(".reveal-right").forEach((el) => {
+    gsap.from(el, {
+      opacity: 0,
+      x: 80,
+      duration: 1,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: el,
+        start: "top 88%",
+        once: true
+      }
+    });
+  });
+
+
+  // Scale
+  gsap.utils.toArray(".reveal-scale").forEach((el) => {
+    gsap.from(el, {
+      opacity: 0,
+      scale: 0.88,
+      duration: 1.2,
+      ease: "expo.out",
+      scrollTrigger: {
+        trigger: el,
+        start: "top 88%",
+        once: true
+      }
+    });
+  });
+
+
+  // Stagger
+  gsap.utils.toArray(".stagger-parent").forEach((parent) => {
+    gsap.from(parent.querySelectorAll(".stagger-item"), {
+      opacity: 0,
+      y: 40,
+      duration: 0.8,
+      stagger: 0.12,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: parent,
+        start: "top 88%",
+        once: true
+      }
+    });
+  });
+
+});
