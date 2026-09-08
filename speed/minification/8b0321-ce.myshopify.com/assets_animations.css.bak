@@ -1,0 +1,34 @@
+/* Initial State */
+
+.fade,
+.fade-up,
+.fade-down,
+.fade-left,
+.fade-right,
+.scale-in,
+.zoom-out,
+.rotate-in,
+.blur-in,
+.stagger > * {
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+.parallax{
+    will-change: transform;
+}
+
+/* Delay */
+
+.delay-1{--delay:.1s;}
+.delay-2{--delay:.2s;}
+.delay-3{--delay:.3s;}
+.delay-4{--delay:.4s;}
+.delay-5{--delay:.5s;}
+.delay-6{--delay:.6s;}
+
+/* Duration */
+
+.duration-fast{}
+.duration-normal{}
+.duration-slow{}
