@@ -1,0 +1,50 @@
+(function () {
+    document.querySelectorAll('.tmb-product-card-v2').forEach(function (card) {
+      var radios = card.querySelectorAll('.tmb-variant-pill-v2 input');
+      var chooseBtn = card.querySelector('.tmb-choose-variant-btn-v2');
+      var addBtn = card.querySelector('.tmb-add-to-bag-btn-v2');
+      var priceEl = card.querySelector('.tmb-product-price-v2 .price');
+
+      radios.forEach(function (radio) {
+        radio.addEventListener('change', function () {
+          if (priceEl && this.dataset.price) {
+            priceEl.textContent = this.dataset.price;
+          }
+          if (chooseBtn) chooseBtn.style.display = 'none';
+          if (addBtn) {
+            addBtn.classList.remove('hidden');
+            addBtn.dataset.variantId = this.value;
+          }
+        });
+      });
+
+      if (addBtn) {
+        addBtn.addEventListener('click', function () {
+          var variantId = this.dataset.variantId;
+
+          if (!variantId) {
+            alert('Please select a variant');
+            return;
+          }
+
+          var btn = this;
+
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: variantId, quantity: 1 })
+          })
+            .then(function (response) { return response.json(); })
+            .then(function () {
+              btn.textContent = 'Added!';
+              setTimeout(function () { btn.textContent = 'Add to Bag'; }, 2000);
+              document.dispatchEvent(new CustomEvent('cart:refresh'));
+            })
+            .catch(function (error) {
+              console.error('Error:', error);
+              alert('Failed to add item to bag');
+            });
+        });
+      }
+    });
+  })();
