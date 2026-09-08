@@ -45,7 +45,7 @@
       <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
     {%- endif -%}
 
-    <script defer type="importmap">
+    <script type="importmap">
       {%- comment -%}On Safari 16.3 and lower, a polyfill is used to load importmap{%- endcomment -%}
       {
         "imports": {
@@ -56,8 +56,8 @@
       }
     </script>
 
-    <script defer type="module" src="{{ 'vendor.min.js' | asset_url }}"></script>
-    <script defer type="module" src="{{ 'theme.js' | asset_url }}"></script>
+    <script type="module" src="{{ 'vendor.min.js' | asset_url }}"></script>
+    <script type="module" src="{{ 'theme.js' | asset_url }}"></script>
 
     {{ content_for_header }}
 
@@ -65,7 +65,9 @@
 
     {{- 'fonts.css' | asset_url | stylesheet_tag: preload: true -}}
 
-    {{- 'swiper-bundle.min.css' | asset_url | stylesheet_tag: preload: true -}}
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css " rel="stylesheet">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
     {% if collection.handle == 'best-sellers' %}
       <style>
@@ -83,36 +85,19 @@
 
     {%- render 'custom-style' -%}
 
+    <script src="{{ 'animations.js' | asset_url }}" defer></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+
+    <script type="module" src="{{ 'scroll-animation.js' | asset_url }}"></script>
+
     <script defer src="{{ 'tmb-product-card-v2.js' | asset_url }}"></script>
 
     <script defer src="https://t.contentsquare.net/uxa/56c1483d149f8.js"></script>
 
-    <style>
-          .header__search-link {
-            display:none;
-            }
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 
-        @media screen and (min-width: 991px) {
-          .header__search-link {
-              display: none;
-          }
-      }
-    </style>
-
-    <!-- This Script is the exclusive property of Website Speedy, Copyright © 2026. All rights reserved. -->
-    <script
-      type="text/javascript"
-      src="https://shopify-websitespeedy11.b-cdn.net/speedyscripts/ecmrx_1803/ecmrx_1803_1.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="https://shopify-websitespeedy11.b-cdn.net/speedyscripts/ecmrx_1803/ecmrx_1803_2.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="https://shopify-websitespeedy11.b-cdn.net/speedyscripts/ecmrx_1803/ecmrx_1803_3.js"
-    ></script>
-    <!-- This Script is the exclusive property of Website Speedy, Copyright © 2026. All rights reserved. -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
   </head>
 
   {% liquid
@@ -172,11 +157,6 @@
       {% comment %}Container for notification messages; DO NOT DELETE{% endcomment %}
     </x-toast>
 
-    <script defer src="{{ 'gsap.min.js' | asset_url }}"></script>
-    <script defer src="{{ 'ScrollTrigger.min.js' | asset_url }}"></script>
-    <script defer src="{{ 'animations.js' | asset_url }}"></script>
-    <script defer src="{{ 'scroll-animation.js' | asset_url }}"></script>
-
-    <script defer src="{{ 'swiper-bundle.min.js' | asset_url }}"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   </body>
 </html>
