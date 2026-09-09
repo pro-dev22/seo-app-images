@@ -115,7 +115,8 @@
 
     <script defer type="module" src="{{ 'vendor.min.js' | asset_url }}"></script>
     <script defer type="module" src="{{ 'theme.js' | asset_url }}"></script>
-  </head>
+  <script src="{{ 'lazy-load-app.js' | asset_url }}" defer></script>
+</head>
 
   {% liquid
     assign features_class = ''
