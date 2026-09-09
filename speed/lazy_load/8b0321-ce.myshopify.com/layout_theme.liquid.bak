@@ -8,6 +8,11 @@
       content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, maximum-scale=5.0"
     >
 
+    <script
+      src="{{ 'third-party-delay.js' | asset_url }}"
+      defer
+    ></script>
+
     <title>
       {% if page_title == blank -%}
         {{- shop.name -}}
@@ -36,10 +41,62 @@
       <link rel="preload" href="{{ settings.text_font | font_url }}" as="font" type="font/woff2" crossorigin>
     {%- endunless -%}
 
+    {{- 'fonts.css' | asset_url | stylesheet_tag: preload: true -}}
+
     {%- render 'social-meta-tags' -%}
     {%- render 'microdata-schema' -%}
     {%- render 'css-variables' -%}
     {%- render 'js-variables' -%}
+
+    {{ content_for_header }}
+
+    {{- 'theme.css' | asset_url | stylesheet_tag -}}
+
+    {%- render 'custom-style' -%}
+
+    {% if collection.handle == 'best-sellers' %}
+      <style>
+        .collection-banner-v2__content_top *,
+        .collection-banner-v2__content_top .collection-banner-v2__eyebrow {
+          color: #fff !important;
+        }
+
+        .collection-banner-v2__content_top p,
+        .collection-banner-v2__content_top .collection-banner-v2__eyebrow {
+          color: #CCCCE3 !important;
+        }
+      </style>
+    {% endif %}
+
+    <style>
+          .header__search-link {
+            display:none;
+            }
+
+        @media screen and (min-width: 991px) {
+          .header__search-link {
+              display: none;
+          }
+      }
+    </style>
+
+    {% comment %} <script defer src="https://t.contentsquare.net/uxa/56c1483d149f8.js"></script> {% endcomment %}
+    <script>
+      window.addEventListener('load', function () {
+        var loadContentsquare = function () {
+          var script = document.createElement('script');
+          script.src = 'https://t.contentsquare.net/uxa/56c1483d149f8.js';
+          script.async = true;
+          document.head.appendChild(script);
+        };
+
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadContentsquare, { timeout: 3000 });
+        } else {
+          setTimeout(loadContentsquare, 2000);
+        }
+      });
+    </script>
 
     {%- if request.page_type == 'gift_card' -%}
       <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
@@ -58,63 +115,7 @@
 
     <script defer type="module" src="{{ 'vendor.min.js' | asset_url }}"></script>
     <script defer type="module" src="{{ 'theme.js' | asset_url }}"></script>
-
-    {{ content_for_header }}
-
-    {{- 'theme.css' | asset_url | stylesheet_tag: preload: true -}}
-
-    {{- 'fonts.css' | asset_url | stylesheet_tag: preload: true -}}
-
-    {{- 'swiper-bundle.min.css' | asset_url | stylesheet_tag: preload: true -}}
-
-    {% if collection.handle == 'best-sellers' %}
-      <style>
-        .collection-banner-v2__content_top *,
-        .collection-banner-v2__content_top .collection-banner-v2__eyebrow {
-          color: #fff !important;
-        }
-
-        .collection-banner-v2__content_top p,
-        .collection-banner-v2__content_top .collection-banner-v2__eyebrow {
-          color: #CCCCE3 !important;
-        }
-      </style>
-    {% endif %}
-
-    {%- render 'custom-style' -%}
-
-    <script defer src="{{ 'tmb-product-card-v2.js' | asset_url }}"></script>
-
-    <script defer src="https://t.contentsquare.net/uxa/56c1483d149f8.js"></script>
-
-    <style>
-          .header__search-link {
-            display:none;
-            }
-
-        @media screen and (min-width: 991px) {
-          .header__search-link {
-              display: none;
-          }
-      }
-    </style>
-
-    <!-- This Script is the exclusive property of Website Speedy, Copyright © 2026. All rights reserved. -->
-    <script
-      type="text/javascript"
-      src="https://shopify-websitespeedy11.b-cdn.net/speedyscripts/ecmrx_1803/ecmrx_1803_1.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="https://shopify-websitespeedy11.b-cdn.net/speedyscripts/ecmrx_1803/ecmrx_1803_2.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="https://shopify-websitespeedy11.b-cdn.net/speedyscripts/ecmrx_1803/ecmrx_1803_3.js"
-    ></script>
-    <!-- This Script is the exclusive property of Website Speedy, Copyright © 2026. All rights reserved. -->
-  <script src="{{ 'lazy-load-app.js' | asset_url }}" defer></script>
-</head>
+  </head>
 
   {% liquid
     assign features_class = ''
@@ -173,11 +174,8 @@
       {% comment %}Container for notification messages; DO NOT DELETE{% endcomment %}
     </x-toast>
 
-    <script defer src="{{ 'gsap.min.js' | asset_url }}"></script>
-    <script defer src="{{ 'ScrollTrigger.min.js' | asset_url }}"></script>
-    <script defer src="{{ 'animations.js' | asset_url }}"></script>
-    <script defer src="{{ 'scroll-animation.js' | asset_url }}"></script>
+    <script defer src="{{ 'tmb-product-card-v2.js' | asset_url }}"></script>
 
-    <script defer src="{{ 'swiper-bundle.min.js' | asset_url }}"></script>
+    <script defer src="{{ 'scroll-animation.js' | asset_url }}"></script>
   </body>
 </html>
